@@ -9,7 +9,7 @@ with open("README.md", "r") as f:
 
 setup(
     name="PyPortfolioOpt",
-    version="1.4.2",
+    version="1.5.0",
     description="Financial portfolio optimization in python",
     long_description=desc,
     long_description_content_type="text/markdown",
@@ -26,6 +26,7 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Natural Language :: English",
         "Operating System :: OS Independent",
+        "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.6",
