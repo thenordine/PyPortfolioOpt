@@ -233,7 +233,7 @@ def test_min_semivariance_tx_costs():
 
 def test_min_semivariance_L2_reg():
     es = setup_efficient_semivariance()
-    es.add_objective(objective_functions.L2_reg, gamma=1)
+    es.add_objective(objective_functions.l2_reg, gamma=1)
     weights = es.min_semivariance()
     assert isinstance(weights, dict)
     assert set(weights.keys()) == set(es.tickers)
@@ -369,7 +369,7 @@ def test_max_quadratic_utility_market_neutral():
 
 def test_max_quadratic_utility_L2_reg():
     es = setup_efficient_semivariance()
-    es.add_objective(objective_functions.L2_reg, gamma=5)
+    es.add_objective(objective_functions.l2_reg, gamma=5)
     weights = es.max_quadratic_utility()
 
     assert isinstance(weights, dict)
@@ -450,7 +450,7 @@ def test_efficient_risk_market_neutral():
 
 def test_efficient_risk_L2_reg():
     es = setup_efficient_semivariance()
-    es.add_objective(objective_functions.L2_reg, gamma=1)
+    es.add_objective(objective_functions.l2_reg, gamma=1)
     weights = es.efficient_risk(0.19)
 
     assert isinstance(weights, dict)
@@ -516,7 +516,7 @@ def test_efficient_return_short():
 
 def test_efficient_return_L2_reg():
     es = setup_efficient_semivariance()
-    es.add_objective(objective_functions.L2_reg, gamma=1)
+    es.add_objective(objective_functions.l2_reg, gamma=1)
     w = es.efficient_return(0.25)
     assert isinstance(w, dict)
     assert set(w.keys()) == set(es.tickers)

@@ -175,7 +175,7 @@ def test_min_volatility_short():
 
 def test_min_volatility_L2_reg():
     ef = setup_efficient_frontier()
-    ef.add_objective(objective_functions.L2_reg, gamma=1)
+    ef.add_objective(objective_functions.l2_reg, gamma=1)
     weights = ef.min_volatility()
     assert isinstance(weights, dict)
     assert set(weights.keys()) == set(ef.tickers)
@@ -205,7 +205,7 @@ def test_min_volatility_L2_reg_many_values():
     initial_number = sum(ef.weights > 0.01)
     for gamma_multiplier in range(1, 10):
         ef = setup_efficient_frontier()
-        ef.add_objective(objective_functions.L2_reg, gamma=0.05*gamma_multiplier)
+        ef.add_objective(objective_functions.l2_reg, gamma=0.05 * gamma_multiplier)
         ef.min_volatility()
         np.testing.assert_almost_equal(ef.weights.sum(), 1)
         new_number = sum(ef.weights > 0.01)
@@ -216,7 +216,7 @@ def test_min_volatility_L2_reg_many_values():
 
 def test_min_volatility_L2_reg_limit_case():
     ef = setup_efficient_frontier()
-    ef.add_objective(objective_functions.L2_reg, gamma=1e10)
+    ef.add_objective(objective_functions.l2_reg, gamma=1e10)
     ef.min_volatility()
     equal_weights = np.array([1 / ef.n_assets] * ef.n_assets)
     np.testing.assert_array_almost_equal(ef.weights, equal_weights)
@@ -229,7 +229,7 @@ def test_min_volatility_L2_reg_increases_vol():
     ef_no_reg.min_volatility()
     vol_no_reg = ef_no_reg.portfolio_performance()[1]
     ef = setup_efficient_frontier()
-    ef.add_objective(objective_functions.L2_reg, gamma=2)
+    ef.add_objective(objective_functions.l2_reg, gamma=2)
     ef.min_volatility()
     vol = ef.portfolio_performance()[1]
     assert vol > vol_no_reg
@@ -239,7 +239,7 @@ def test_min_volatility_tx_costs_L2_reg():
     ef = setup_efficient_frontier()
     prev_w = np.array([1 / ef.n_assets] * ef.n_assets)
     ef.add_objective(objective_functions.transaction_cost, w_prev=prev_w)
-    ef.add_objective(objective_functions.L2_reg)
+    ef.add_objective(objective_functions.l2_reg)
     ef.min_volatility()
 
     np.testing.assert_allclose(
@@ -469,7 +469,7 @@ def test_max_sharpe_short():
 
 def test_max_sharpe_L2_reg():
     ef = setup_efficient_frontier()
-    ef.add_objective(objective_functions.L2_reg, gamma=5)
+    ef.add_objective(objective_functions.l2_reg, gamma=5)
 
     with pytest.warns(UserWarning) as w:
         weights = ef.max_sharpe()
@@ -504,7 +504,7 @@ def test_max_sharpe_L2_reg_many_values():
     initial_number = sum(ef.weights > 0.01)
     for i in range(1, 20, 2):
         ef = setup_efficient_frontier()
-        ef.add_objective(objective_functions.L2_reg, gamma=0.05 * i)
+        ef.add_objective(objective_functions.l2_reg, gamma=0.05 * i)
         ef.max_sharpe()
         np.testing.assert_almost_equal(ef.weights.sum(), 1)
         new_number = sum(ef.weights > 0.01)
@@ -515,11 +515,11 @@ def test_max_sharpe_L2_reg_many_values():
 
 def test_max_sharpe_L2_reg_different_gamma():
     ef = setup_efficient_frontier()
-    ef.add_objective(objective_functions.L2_reg, gamma=1)
+    ef.add_objective(objective_functions.l2_reg, gamma=1)
     ef.max_sharpe()
 
     ef2 = setup_efficient_frontier()
-    ef2.add_objective(objective_functions.L2_reg, gamma=0.01)
+    ef2.add_objective(objective_functions.l2_reg, gamma=0.01)
     ef2.max_sharpe()
 
     # Higher gamma should pull close to equal weight
@@ -536,7 +536,7 @@ def test_max_sharpe_L2_reg_reduces_sharpe():
     ef_no_reg.max_sharpe()
     sharpe_no_reg = ef_no_reg.portfolio_performance()[2]
     ef = setup_efficient_frontier()
-    ef.add_objective(objective_functions.L2_reg, gamma=2)
+    ef.add_objective(objective_functions.l2_reg, gamma=2)
     ef.max_sharpe()
     sharpe = ef.portfolio_performance()[2]
     assert sharpe < sharpe_no_reg
@@ -550,7 +550,7 @@ def test_max_sharpe_L2_reg_with_shorts():
     ef = EfficientFrontier(
         *setup_efficient_frontier(data_only=True), weight_bounds=(None, None)
     )
-    ef.add_objective(objective_functions.L2_reg)
+    ef.add_objective(objective_functions.l2_reg)
     w = ef.max_sharpe()
     assert isinstance(w, dict)
     assert set(w.keys()) == set(ef.tickers)
@@ -868,7 +868,7 @@ def test_max_quadratic_utility_limit():
 
 def test_max_quadratic_utility_L2_reg():
     ef = setup_efficient_frontier()
-    ef.add_objective(objective_functions.L2_reg, gamma=5)
+    ef.add_objective(objective_functions.l2_reg, gamma=5)
     weights = ef.max_quadratic_utility()
 
     assert isinstance(weights, dict)
@@ -978,7 +978,7 @@ def test_efficient_risk_short():
 
 def test_efficient_risk_L2_reg():
     ef = setup_efficient_frontier()
-    ef.add_objective(objective_functions.L2_reg, gamma=5)
+    ef.add_objective(objective_functions.l2_reg, gamma=5)
     weights = ef.efficient_risk(0.19)
 
     assert isinstance(weights, dict)
@@ -1028,7 +1028,7 @@ def test_efficient_risk_market_neutral_L2_reg():
     ef = EfficientFrontier(
         *setup_efficient_frontier(data_only=True), weight_bounds=(-1, 1)
     )
-    ef.add_objective(objective_functions.L2_reg)
+    ef.add_objective(objective_functions.l2_reg)
 
     w = ef.efficient_risk(0.19, market_neutral=True)
     assert isinstance(w, dict)
@@ -1153,7 +1153,7 @@ def test_efficient_return_longshort_target():
 
 def test_efficient_return_L2_reg():
     ef = setup_efficient_frontier()
-    ef.add_objective(objective_functions.L2_reg, gamma=1)
+    ef.add_objective(objective_functions.l2_reg, gamma=1)
     w = ef.efficient_return(0.25)
     assert isinstance(w, dict)
     assert set(w.keys()) == set(ef.tickers)
@@ -1258,7 +1258,7 @@ def test_max_sharpe_short_semicovariance():
 def test_min_volatilty_shrunk_L2_reg():
     df = get_data()
     ef = setup_efficient_frontier()
-    ef.add_objective(objective_functions.L2_reg)
+    ef.add_objective(objective_functions.l2_reg)
 
     ef.cov_matrix = risk_models.CovarianceShrinkage(df).ledoit_wolf(
         shrinkage_target="constant_correlation"
@@ -1309,7 +1309,7 @@ def test_max_sharpe_exp_cov():
 def test_min_volatility_exp_cov_L2_reg():
     df = get_data()
     ef = setup_efficient_frontier()
-    ef.add_objective(objective_functions.L2_reg)
+    ef.add_objective(objective_functions.l2_reg)
     ef.cov_matrix = risk_models.exp_cov(df)
     w = ef.min_volatility()
     assert isinstance(w, dict)

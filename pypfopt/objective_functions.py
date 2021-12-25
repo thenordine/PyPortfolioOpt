@@ -115,7 +115,7 @@ def sharpe_ratio(w, expected_returns, cov_matrix, risk_free_rate=0.02, negative=
     return _objective_value(w, sign * sharpe)
 
 
-def L2_reg(w, gamma=1):
+def l2_reg(w, gamma=1):
     r"""
     L2 regularisation, i.e :math:`\gamma ||w||^2`, to increase the number of nonzero weights.
 
@@ -133,8 +133,8 @@ def L2_reg(w, gamma=1):
     :return: value of the objective function OR objective function expression
     :rtype: float OR cp.Expression
     """
-    L2_reg = gamma * cp.sum_squares(w)
-    return _objective_value(w, L2_reg)
+    l2_regularisation = gamma * cp.sum_squares(w)
+    return _objective_value(w, l2_regularisation)
 
 
 def quadratic_utility(w, expected_returns, cov_matrix, risk_aversion, negative=True):

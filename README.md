@@ -304,7 +304,7 @@ objective function that can reduce the number of negligible weights for any of t
 
 ```python
 ef = EfficientFrontier(mu, S)
-ef.add_objective(objective_functions.L2_reg, gamma=1)
+ef.add_objective(objective_functions.l2_reg, gamma=1)
 ef.max_sharpe()
 ```
 
