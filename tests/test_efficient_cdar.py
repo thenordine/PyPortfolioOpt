@@ -213,7 +213,7 @@ def test_min_cdar_tx_costs():
 
 def test_min_cdar_L2_reg():
     cd = setup_efficient_cdar(solver="ECOS")
-    cd.add_objective(objective_functions.L2_reg, gamma=0.1)
+    cd.add_objective(objective_functions.l2_reg, gamma=0.1)
     weights = cd.min_cdar()
     assert isinstance(weights, dict)
     assert set(weights.keys()) == set(cd.tickers)
@@ -339,7 +339,7 @@ def test_efficient_risk_market_neutral():
 
 def test_efficient_risk_L2_reg():
     cd = setup_efficient_cdar()
-    cd.add_objective(objective_functions.L2_reg, gamma=1)
+    cd.add_objective(objective_functions.l2_reg, gamma=1)
     weights = cd.efficient_risk(0.18)
 
     assert isinstance(weights, dict)
@@ -405,7 +405,7 @@ def test_efficient_return_short():
 
 def test_efficient_return_L2_reg():
     cd = setup_efficient_cdar()
-    cd.add_objective(objective_functions.L2_reg, gamma=1)
+    cd.add_objective(objective_functions.l2_reg, gamma=1)
     w = cd.efficient_return(0.25)
     assert isinstance(w, dict)
     assert set(w.keys()) == set(cd.tickers)

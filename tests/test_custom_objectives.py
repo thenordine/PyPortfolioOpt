@@ -20,14 +20,14 @@ def test_custom_convex_equal_weights():
 
 def test_custom_convex_additional():
     ef = setup_efficient_frontier()
-    ef.add_objective(objective_functions.L2_reg, gamma=1)
+    ef.add_objective(objective_functions.l2_reg, gamma=1)
     w_co = ef.convex_objective(
         objective_functions.portfolio_variance, cov_matrix=ef.cov_matrix
     )
 
     # Same as test_min_volatility_L2_reg:
     ef = setup_efficient_frontier()
-    ef.add_objective(objective_functions.L2_reg, gamma=1)
+    ef.add_objective(objective_functions.l2_reg, gamma=1)
     w_mv = ef.min_volatility()
     # Weights from custom convex objective match those from min_volatility where
     # an additional objective is applied to both.

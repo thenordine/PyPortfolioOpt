@@ -65,7 +65,7 @@ def test_sharpe_ratio():
 def test_L2_reg_dummy():
     gamma = 2
     w = np.array([0.1, 0.2, 0.3, 0.4])
-    L2_reg = objective_functions.L2_reg(w, gamma=gamma)
+    L2_reg = objective_functions.l2_reg(w, gamma=gamma)
     np.testing.assert_almost_equal(L2_reg, gamma * np.sum(w * w))
 
 

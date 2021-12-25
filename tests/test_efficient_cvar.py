@@ -208,7 +208,7 @@ def test_min_cvar_tx_costs():
 
 def test_min_cvar_L2_reg():
     cv = setup_efficient_cvar(solver="ECOS")
-    cv.add_objective(objective_functions.L2_reg, gamma=0.1)
+    cv.add_objective(objective_functions.l2_reg, gamma=0.1)
     weights = cv.min_cvar()
     assert isinstance(weights, dict)
     assert set(weights.keys()) == set(cv.tickers)
@@ -334,7 +334,7 @@ def test_efficient_risk_market_neutral():
 
 def test_efficient_risk_L2_reg():
     cv = setup_efficient_cvar()
-    cv.add_objective(objective_functions.L2_reg, gamma=1)
+    cv.add_objective(objective_functions.l2_reg, gamma=1)
     weights = cv.efficient_risk(0.03)
 
     assert isinstance(weights, dict)
@@ -400,7 +400,7 @@ def test_efficient_return_short():
 
 def test_efficient_return_L2_reg():
     cv = setup_efficient_cvar()
-    cv.add_objective(objective_functions.L2_reg, gamma=1)
+    cv.add_objective(objective_functions.l2_reg, gamma=1)
     w = cv.efficient_return(0.25)
     assert isinstance(w, dict)
     assert set(w.keys()) == set(cv.tickers)
